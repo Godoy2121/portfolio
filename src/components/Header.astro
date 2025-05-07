@@ -1,0 +1,114 @@
+---
+import ThemeIcon from './ThemeIcons.astro';
+import LanguageSelector from './LanguageSelector.astro';
+---
+
+<header class="fixed top-0 left-0 w-full bg-amber-100/70 dark:bg-gray-800/70 
+    text-black dark:text-gray-200 z-50 shadow-md py-2 md:py-4 backdrop-blur-sm">
+    <nav class="flex flex-col md:flex-row items-center justify-between px-4">
+       
+        <div class="flex items-center justify-between w-full md:w-auto mb-2 md:mb-0">
+            <div class="flex gap-1 md:gap-2">
+                <button class="language-btn p-1 md:p-2 rounded hover:bg-sky-200/90 hover:text-black text-xs md:text-sm transition-colors duration-200" data-lang="es" id="lang-es">ESP</button>
+                <button class="language-btn p-1 md:p-2 rounded hover:bg-sky-200/90 hover:text-black text-xs md:text-sm transition-colors duration-200" data-lang="en" id="lang-en">ENG</button>
+                <button class="language-btn p-1 md:p-2 rounded hover:bg-sky-200/90 hover:text-black text-xs md:text-sm transition-colors duration-200" data-lang="ca" id="lang-ca">CAT</button>
+            </div>
+            <ThemeIcon class="size-5 md:size-6 lg:size-8 ml-2"/>
+        </div>
+
+        <div class="nav-links flex flex-wrap justify-center gap-x-2 md:gap-x-4 lg:gap-x-6 gap-y-1 w-full md:w-auto text-xs md:text-sm lg:text-base">
+            <a href="#top" class="nav-link px-1 md:px-2 hover:text-yellow-400 whitespace-nowrap">
+                <LanguageSelector 
+                    esp="Inicio"
+                    eng="Home"
+                    cat="Inici"/>
+            </a>
+            <a href="#experiencia" class="nav-link px-1 md:px-2 hover:text-yellow-400 whitespace-nowrap">
+                <LanguageSelector 
+                    esp="Experiencia"
+                    eng="Experience"
+                    cat="Experiència"/>
+            </a>
+            <a href="#proyectos" class="nav-link px-1 md:px-2 hover:text-yellow-400 whitespace-nowrap">
+                <LanguageSelector 
+                    esp="Proyectos"
+                    eng="Projects"
+                    cat="Projectes"/>
+            </a>
+            <a href="#sobremi" class="nav-link px-1 md:px-2 hover:text-yellow-400 whitespace-nowrap">CV</a>
+            <a href="#contacto" class="nav-link px-1 md:px-2 hover:text-yellow-400 whitespace-nowrap">
+                <LanguageSelector 
+                    esp="Contacto"
+                    eng="Contact"
+                    cat="Contacte"/>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        
+        function setActiveLanguage(lang) {
+            
+            localStorage.setItem('preferredLanguage', lang);
+            
+            
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove(
+                    'bg-amber-300', 
+                    'dark:bg-amber-600',
+                    'text-black',
+                    'dark:text-white'
+                );
+            });
+            
+            
+            const activeBtn = document.getElementById(`lang-${lang}`);
+            if (activeBtn) {
+                activeBtn.classList.add(
+                    'bg-amber-300',
+                    'dark:bg-amber-600',
+                    'text-black',
+                    'dark:text-white'
+                );
+            }
+        }
+
+        
+        document.querySelectorAll('.language-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                setActiveLanguage(lang);
+            });
+        });
+
+        
+        const savedLang = localStorage.getItem('preferredLanguage') || 'es';
+        setActiveLanguage(savedLang);
+
+        const highlightNavLink = () => {
+            let currentSection = '';
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', highlightNavLink);
+        highlightNavLink(); 
+    });
+</script>

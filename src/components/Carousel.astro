@@ -1,0 +1,131 @@
+---
+const { images } = Astro.props;
+---
+
+<div class="relative carousel-container overflow-hidden">
+    <div class="carousel flex transition-transform duration-500 ease-in-out">
+        {images.map((image) => (
+            <div class="carousel-slide flex-shrink-0 w-full flex justify-center items-center p-4">
+                <img 
+                    src={image.src} 
+                    alt={image.name}
+                    class="rounded-lg object-contain max-h-[70vh] max-w-full cursor-pointer shadow-lg"
+                    loading="lazy"
+                    data-modal-image
+                />
+            </div>
+        ))}
+    </div>
+
+    <!-- Modal para imagen ampliada -->
+    <div id="imageModal" class="fixed inset-0 bg-black/90 flex items-center justify-center hidden z-50">
+        <button id="closeModal" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">&times;</button>
+        <img id="modalImage" class="max-w-[90vw] max-h-[90vh] object-contain" src="" alt="Imagen ampliada" />
+    </div>
+    
+    <!-- Controles de navegación -->
+    {images.length > 1 && (
+        <>
+            <button class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full z-10 transition-colors shadow-lg">
+                &larr;
+            </button>
+            <button class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full z-10 transition-colors shadow-lg">
+                &rarr;
+            </button>
+        </>
+    )}
+
+    <!-- Indicadores -->
+    {images.length > 1 && (
+        <div class="flex justify-center mt-4 space-x-2">
+            {images.map((_, index) => (
+                <button
+                    class="carousel-indicator w-3 h-3 rounded-full bg-gray-400 hover:bg-gray-500 transition-colors"
+                    data-index={index}
+                    aria-label={`Ir a slide ${index + 1}`}
+                ></button>
+            ))}
+        </div>
+    )}
+</div>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+    // Configuración del modal (igual que antes)
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+    
+    document.querySelectorAll('[data-modal-image]').forEach(img => {
+        img.addEventListener('click', () => {
+            modalImage.src = img.src;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Nuevo carrusel de una sola imagen
+    document.querySelectorAll('.carousel-container').forEach(container => {
+        const carousel = container.querySelector('.carousel');
+        const prevBtn = container.querySelector('.carousel-prev');
+        const nextBtn = container.querySelector('.carousel-next');
+        const indicators = container.querySelectorAll('.carousel-indicator');
+        const slides = container.querySelectorAll('.carousel-slide');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        if (totalSlides <= 1) {
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+            return;
+        }
+
+        // Asegurar que cada slide ocupe el 100% del contenedor
+        slides.forEach(slide => {
+            slide.style.width = '100%';
+        });
+
+        const updateCarousel = () => {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            indicators?.forEach((indicator, index) => {
+                indicator.classList.toggle('bg-gray-800', index === currentIndex);
+                indicator.classList.toggle('bg-gray-400', index !== currentIndex);
+            });
+        };
+
+        prevBtn?.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalSlides - 1;
+            updateCarousel();
+        });
+
+        nextBtn?.addEventListener('click', () => {
+            currentIndex = (currentIndex < totalSlides - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        indicators?.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+
+        // Inicializar
+        updateCarousel();
+    });
+});
+</script>

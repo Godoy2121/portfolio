@@ -1,0 +1,186 @@
+---
+import { TAGS } from "../data/skillsData";
+import LanguageSelector from "./LanguageSelector.astro";
+
+const EXPERIENCE = [
+    {
+        date: {
+            es: "Enero 2022 - Junio 2024",
+            en: "January '22 - Juny '24",
+            ca: "Gener 2022 - Juny 2024",
+        },
+        company: "Merlos Infor",
+        title: {
+            es: "Soporte técnico | Desarrollador junior",
+            en: "Technical Support | Junior Developer",
+            ca: "Suport tècnic | Desenvolupador júnior",
+        },
+        city: "Badalona",
+        description: {
+            es: "Soporte online y telefónico para usuarios de Ahora ERP, " +
+            "incluyendo gestión de tickets y resolución de incidencias. " +
+            "Diseño y modificaciones de reportes en Crystal Reports. " +
+            "Personalización en ERP mediante desarrollo en SQL y C#. " +
+            "Migraciones de datos.",
+            en: "Online and telephone support for Ahora ERP users, " +
+            "including ticket management and issue resolution. " +
+            "Design and modifications of reports in Crystal Reports. " +
+            "ERP customization through SQL and C# development." +
+            "Data migrations.",
+            ca: "Suport en línia i telefònic per a usuaris d'Ahora ERP, " +
+            "incloent gestió de tiquets i resolució d'incidències. " +
+            "Disseny i modificacions d'informes a Crystal Reports. " +
+            "Personalització de l'ERP mitjançant desenvolupament en SQL i C#." +
+            "Migracions de dades."
+        },         
+        tags: [
+            { tag: TAGS.AhoraERP, level: 95 },
+            { tag: TAGS.SQLSERVER, level: 95 },
+            { tag: TAGS.CrystalReports, level: 95 },
+            { tag: TAGS.CSHARP, level: 60 },
+        ],
+        link: "https://merlos.net/",
+    },
+    {
+        date: {
+            es: "Junio 2021 - Diciembre 2021",
+            en: "Juny '21 - December '21",
+            ca: "Juny 2021 - Desembre 2021",
+        },
+        company: "Advantys",
+        title: {
+            es: "Soporte técnico",
+            en: "Technical Support",
+            ca: "Suport tècnic",
+        },
+        city: "Granada",
+        description: {
+            es: "Soporte técnico y formación a usuarios de Sage 200. " +
+            "Manipulación y análisis de datos en SQL Server para resolver " +
+            "incidencias y mejorar procesos. Gestión sistema de ticketing.",
+            en: "Technical support and training for Sage 200 users. " +
+            "Data manipulation and analysis in SQL Server to resolve " +
+            "issues and improve processes. Ticketing system management.",
+            ca: "Suport tècnic i formació a usuaris de Sage 200. " +
+            "Manipulació i anàlisi de dades a SQL Server per resoldre " +
+            "incidències i millorar processos. Gestió del sistema de tiquets."
+        },
+        tags: [
+            { tag: TAGS.SAGE, level: 75 },
+            { tag: TAGS.SQLSERVER, level: 60 },
+        ],
+        link: "https://advantys.es/",
+    },
+    {
+        date: {
+            es: "Septiembre 2019 - Diciembre 2020",
+            en: "September '19 - December '20",
+            ca: "Setembre 2019 - Desembre 2020",
+        },
+        company: "APL",
+        title: {
+            es: "Soporte técnico",
+            en: "Technical Support",
+            ca: "Suport tècnic",
+        },
+        city: "Granada",
+        description: {
+            es: "Implementación, mantenimiento, y soporte técnico de " +
+            "soluciones ERP y sistemas de punto de venta (TPV). " +
+            "Administración de bases de datos en MySQL y circuitos de CCTV.",
+            en: "Implementation, maintenance, and technical support for " +
+            "ERP solutions and point of sale (POS) systems. " +
+            "MySQL database administration and CCTV circuits.",
+            ca: "Implementació, manteniment i suport tècnic de " +
+            "solutions ERP i sistemes de punt de venda (TPV). " +
+            "Administració de bases de dades a MySQL i circuits de CCTV."
+        },
+            tags: [
+            { tag: TAGS.AGORA, level: 90 },
+            { tag: TAGS.MYSQL, level: 70 },
+            { tag: TAGS.ODOO, level: 70 },
+            { tag: TAGS.VELNEO, level: 60 },
+        ],
+    },
+];
+---
+
+{
+    EXPERIENCE.map(({ title, date, company, city, description, tags }) => (
+        <ol class="relative border-s border-gray-700 dark:border-gray-400">
+            <li class="mb-10 ms-4 experience-item">
+                <div
+                    class="absolute size-3 bg-gray-500 rounded-full mt-1.5 
+         border border-black-600/60 -start-1.5
+        dark:border-gray-400 dark:bg-gray-500"
+                />
+                <time
+                    class="text-sm md:text-base lg:text-base font-normal leading-none 
+							text-violet-900/90 dark:text-cyan-300/80 mb-1"
+                >
+                    <LanguageSelector 
+                        esp={date.es}
+                        eng={date.en}
+                        cat={date.ca}/>
+                </time>
+                <h3
+                    class="lg:text-2xl md:text-2xl text-xl font-semibold 
+                           dark:text-yellow-200 text-red-900/90 mb-2 mt-2"
+                >
+                    <LanguageSelector 
+                        esp={title.es}
+                        eng={title.en}
+                        cat={title.ca}
+                    />
+                </h3>
+                <h4
+                    class="lg:text-lg md:text-lg text-base font-medium 
+                    text-teal-800 dark:text-stone-300 mt-2 mb-2"
+                >
+                    {company} - {city}
+                </h4>
+                <div
+                    class="lg:text-lg text-base mb-4 text-pretty 
+                    dark:text-gray-400 text-gray-900/90"
+                >
+                    <LanguageSelector 
+                        esp={description.es}
+                        eng={description.en}
+                        cat={description.ca}
+                    />
+                </div>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 
+                        dark:text-white/80">
+                    {tags.map(( {tag, level }) => (
+                        <li class="flex items-center gap-4">
+                            {typeof tag.icon === "string" ? (
+                                <img
+                                    src={tag.icon}
+                                    alt={tag.name}
+                                    class="size-6 lg:size-8"
+                                />
+                            ) : (
+                                <tag.icon class="size-6 lg:size-8" />
+                            )}
+                            <div class="w-full">
+                                <p class="font-semibold text-sm lg:text-base mb-1">
+                                    {tag.name}
+                                </p>
+                                {level !== undefined && (
+                                    <div class="relative w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700
+                                                border border-black dark:border-white box-border">
+                                        <div
+                                            class={`absolute top-0 left-0 h-full rounded-full ${tag.class.split(" ")[0]}`}
+                                            style={`width: ${level}%;`}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </li>
+        </ol>
+    ))
+}
+

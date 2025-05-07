@@ -1,0 +1,40 @@
+---
+// Componente: LanguageSelector.astro
+
+// Props para los textos en diferentes idiomas
+const { esp, eng, cat } = Astro.props;
+
+---
+
+<div class="language-selector">
+  <div>
+    <span class="language-text es block">{esp}</span>
+    <span class="language-text en hidden">{eng}</span>
+    <span class="language-text ca hidden">{cat}</span>
+  </div>
+</div>
+
+<script is:inline>
+    
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.language-btn');
+    const texts = document.querySelectorAll('.language-text');
+    
+    function setLanguage(lang) {
+      texts.forEach(text => {
+        text.classList.toggle('hidden', !text.classList.contains(lang));
+        text.classList.toggle('block', text.classList.contains(lang));
+      });
+      localStorage.setItem('preferredLanguage', lang);
+    }
+    
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+    
+    const savedLang = localStorage.getItem('preferredLanguage') || 'es';
+    setLanguage(savedLang);
+  });
+</script>

@@ -1,0 +1,26 @@
+---
+// components/TranslatableText.astro
+import { languageStore } from '../stores/languageStore';
+
+const { spanish, english, catalan } = Astro.props;
+---
+
+<span id="translatable-text" class:hidden={languageStore.get() !== 'es'}>
+  {spanish}
+</span>
+<span id="translatable-text" class:hidden={languageStore.get() !== 'en'}>
+  {english}
+</span>
+<span id="translatable-text" class:hidden={languageStore.get() !== 'ca'}>
+  {catalan}
+</span>
+
+<!-- Script para reactividad (sin recargar página) -->
+<script is:inline>
+  import { languageStore } from '../stores/languageStore';
+  languageStore.subscribe((lang) => {
+    document.querySelectorAll('#translatable-text').forEach(el => {
+      el.classList.toggle('hidden', !el.classList.contains(lang));
+    });
+  });
+</script>

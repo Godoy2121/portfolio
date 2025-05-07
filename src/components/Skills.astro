@@ -1,0 +1,23 @@
+---
+
+interface Props {
+  name: string;
+  icon: any; 
+  bgColor: string; 
+  textColor?: string;
+  level?: number; 
+}
+
+const { name, icon, bgColor, textColor = 'text-white', level } = Astro.props;
+---
+<li class="flex items-center gap-4">
+  <div class="size-6 lg:size-8">{icon}</div>
+  <div class="w-full">
+    <p class={`font-semibold text-sm lg:text-base ${textColor}`}>{name}</p>
+    {level !== undefined && (
+      <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+        <div class={`${bgColor} h-2 rounded-full`} style={`width: ${level}%;`}></div>
+      </div>
+    )}
+  </div>
+</li>

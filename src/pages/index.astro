@@ -1,0 +1,156 @@
+---
+import Badge from '../components/Badge.astro';
+import Layout from '../layouts/Layout.astro';
+import Linkedin from '../components/icons/Linkedin.astro';
+import Github from '../components/icons/Github.astro';
+import Mail from '../components/icons/Mail.astro';
+import Socialmedia from '../components/Socialmedia.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import SectionContainer from '../components/SectionContainer.astro';
+import Contact from '../components/Contact.astro';
+import AboutMe from '../components/AboutMe.astro';
+import CV from '../components/icons/CV.astro';
+import Code from '../components/icons/Code.astro';
+import ContactIcon from '../components/icons/Contact-icon.astro';
+import Myself from '../components/icons/Myself.astro';
+import LanguageSelector from '../components/LanguageSelector.astro';
+
+---
+
+
+
+<Layout title="Portfolio Tomás | Sistemas | Desarrollo y Programación "
+		description="Proactivo y amante de la tecnología">
+	<main class="md:px-4 px-10">
+		
+		<SectionContainer class="py-20 pb-32">
+			<img 
+				class="rounded-full border border-cyan-800 md:size-16 size-14 mb-4" 
+				src="/img/tomas_photo.jpg" 
+				alt="tomas photo" />
+			<h1 class="text-3xl md:text-3xl lg:text-4xl font-bold flex  
+				flex-row justify-center md:justify-start sm:gap-x-2 gap-x-4 pb-4 lg:pb-6 text-cyan-800 dark:text-gray-200">
+				<LanguageSelector 
+					esp="¡Hola, soy Tomás!" 
+					eng="Hello, I'm Tomás!" 
+					cat="Hola, sóc en Tomàs!" 
+				/>
+			</h1>		
+				<a href="https://www.linkedin.com/in/antonayagodoy/"
+				target="_blank"
+				class="flex justify-center md:justify-start items-center">
+					<Badge>
+						<LanguageSelector 
+							esp="Buscando empleo"
+							eng="Seeking job"
+							cat="Buscant feina"
+						/>
+					</Badge>
+				</a>
+			<h2 class="text-base text-center justify-center md:justify-start lg:text-xl flex flex-wrap text-wrap max-w-[700px]">
+				<span class="text-cyan-900/90 dark:text-gray-200/90">
+					<LanguageSelector 
+						esp="Administrador de sistemas y base de datos"
+						eng="Sys & DataBase Admin"
+						cat="Administrador de sistemes i base de dades"/> 
+				</span>
+				<span class="text-cyan-700/90 dark:text-gray-200/40 text-2xl">&nbsp;|&nbsp;</span> 
+				<span class="text-cyan-900/90 dark:text-gray-200/90">
+					<LanguageSelector 
+						esp="Desarrollador Web & Apps"
+						eng="Web & Apps Developer"
+						cat="Desenvolupador Web & Apps"/> 
+					</span>
+				<span class="text-cyan-700/90 dark:text-gray-200/40 text-2xl">&nbsp;|&nbsp;</span> 
+				<span class="text-cyan-900/90 dark:text-gray-200/90">Barcelona</span>
+				<span class="text-cyan-700/90 dark:text-gray-200/40 text-2xl">&nbsp;|&nbsp;</span> 
+				<span class="text-purple-800/90 dark:text-blue-300/90">
+					<LanguageSelector 
+						esp="Me gusta lo que hago 😁​"
+						eng="I love my job 😁​"
+						cat="M'agrada el que faig 😁​​"/>
+					</span>
+			</h2>
+
+				<nav class="flex md:gap-x-4 md:gap-y-2 gap-2 mt-8 text-gray-200/90 flex-wrap justify-center">
+					
+					<Socialmedia href="https://www.linkedin.com/in/antonayagodoy/">
+						<Linkedin class="size-4 md:size-5.5"/>
+						LinkedIn
+					</Socialmedia>
+					<Socialmedia href="https://github.com/Godoy2121">
+						<Github class="size-4 md:size-5.5"/>
+						Github
+					</Socialmedia>
+					<Socialmedia href="mailto:tomasantonayagodoy@gmail.com">
+						<Mail class="size-4 md:size-5.5"/>
+						tomasantonayagodoy@gmail.com
+					</Socialmedia>
+					
+				</nav>
+		
+		</SectionContainer>
+
+		<SectionContainer id="experiencia" class="scroll-mt-16">
+			
+			<h2 class="lg:text-3xl text-2xl font-semibold mb-6 
+				flex gap-x-3 items-center text-cyan-800 dark:text-gray-200/90">
+				<CV class="size-8"/>
+				<LanguageSelector 
+						esp="Experiencia Laboral"
+						eng="Work Experience"
+						cat="Experiència Laboral"/>		
+			</h2>
+			<Experience />
+		</SectionContainer>
+
+		<SectionContainer id="proyectos" class="scroll-mt-16">
+			
+			<h2 class="lg:text-3xl text-2xl font-semibold mb-6 
+				flex gap-x-3 items-center text-cyan-800 dark:text-gray-200/90">
+				<Code class="size-8"/>
+				<LanguageSelector 
+					esp="Proyectos"
+					eng="Projects"
+					cat="Projectes"/>
+			</h2>
+			<div class="gap-x-2 mb-4 text-pink-800 dark:text-pink-400/90 
+				font-semibold text-center neon-effect">
+				<LanguageSelector 
+                        esp="Pulsa en el título para ver el proyecto"
+                        eng="Click on the title to see the project"
+                        cat="Prem en el títol per a veure el projecte"
+                    />
+				
+			</div>
+			<Projects />
+		</SectionContainer>
+
+		<SectionContainer id="sobremi" class="scroll-mt-16">
+			
+			<h2 class="lg:text-3xl text-2xl font-semibold mb-6 
+				flex gap-x-3 items-center text-cyan-800 dark:text-gray-200/90">
+				<Myself class="size-8"/>
+					<LanguageSelector 
+						esp="CV | Sobre mí"
+						eng="CV | About me"
+						cat="CV | Sobre mi"/>
+				<AboutMe />
+			</h2>
+		</SectionContainer>
+
+		<SectionContainer id="contacto" class="scroll-mt-16">
+			
+			<h2 class="lg:text-3xl text-2xl font-semibold mb-6 
+				flex gap-x-3 items-center text-cyan-800 dark:text-gray-200/90">
+				<ContactIcon class="size-8"/>
+				<LanguageSelector 
+						esp="Contacto"
+						eng="Contact"
+						cat="Contacte"/>
+				<Contact />
+			</h2>
+		</SectionContainer>
+	</main>
+</Layout>

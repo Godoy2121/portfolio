@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LanguageSelector from '../components/LanguageSelector.astro';
+---
+
+<Layout title="Obras" description="Soon">
+  <section class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div class="absolute inset-0 z-10 pointer-events-none"></div>
+    <div class="text-center max-w-xl mx-auto">
+      <h1 class="text-4xl font-extrabold mb-6 text-red-900 dark:text-yellow-200">
+        <LanguageSelector 
+					esp="Descarga disponible próximamente" 
+					eng="Download available soon" 
+					cat="Descàrrega disponible pròximament" 
+				/>
+        
+      </h1>
+      <div class="mb-6 text-lg text-gray-700 dark:text-gray-300">
+        <LanguageSelector 
+					esp="Estamos trabajando para que esta descarga esté disponible pronto. ¡Gracias por tu paciencia!" 
+					cat="Estem treballant perquè aquesta descàrrega estigui disponible rampell. Gràcies per la teva paciència!" 
+					eng="We are working to make this download available soon. Thanks for your patience!" 
+				/>
+        
+      </div>
+      <button 
+        onclick="window.history.back()" 
+        class="px-6 py-3 bg-cyan-900/90 text-white dark:text-black rounded-lg shadow-md hover:bg-cyan-600 dark:bg-cyan-300/90 dark:hover:bg-cyan-600 transition cursor-pointer"
+      >
+      <LanguageSelector 
+      esp="Volver" 
+      cat="Tornar" 
+      eng="Go back" 
+    />
+      </button>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,57 @@
+---
+import { PROJECTS } from "../stores/projectData.js"
+import LanguageSelector from "./LanguageSelector.astro";
+import Carousel from "../components/Carousel.astro";
+---
+
+{
+    PROJECTS.map(({ images, title, description, tags, link }) => (
+        <article class="mb-12 group">
+            <h3 class="md:text-2xl text-xl font-semibold text-red-900/90 
+                dark:text-yellow-200 mb-2">
+                <a href={link} class="hover:underline">
+                  <LanguageSelector 
+                        esp={title.es}
+                        eng={title.en}
+                        cat={title.ca}
+                    />
+                </a>
+            </h3>
+            <div class="lg:text-lg text-base mb-4 text-pretty dark:text-gray-400 text-gray-900/90">
+              <LanguageSelector 
+                        esp={description.es}
+                        eng={description.en}
+                        cat={description.ca}/>
+            </div>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 dark:text-white/80">
+                {tags.map(({ tag, level }) => (
+                    <li class="flex items-center gap-4">
+                            {typeof tag.icon === "string" ? (
+                                <img
+                                    src={tag.icon}
+                                    alt={tag.name}
+                                    class="size-6 lg:size-8"
+                                />
+                            ) : (
+                                <tag.icon class="size-6 lg:size-8" />
+                            )}
+                            <div class="w-full">
+                                <p class="font-semibold text-sm lg:text-base">
+                                    {tag.name}
+                                </p>
+                                {level !== undefined && (
+                                    <div class="relative w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 border border-black dark:border-white box-border">
+                                        <div
+                                            class={`absolute top-0 left-0 h-full rounded-full ${tag.class.split(" ")[0]}`}
+                                            style={`width: ${level}%;`}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </li>
+                ))}
+            </ul>
+            <Carousel images={images} />    
+        </article>
+    ))
+}
