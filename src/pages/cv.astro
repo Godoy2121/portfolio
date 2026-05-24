@@ -1,0 +1,448 @@
+---
+// CV standalone — sin header/footer, optimizado para imprimir a PDF
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>CV – Tomás Antonaya Godoy | Analista de Datos</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #0e7490;
+      --accent-light: #e0f2fe;
+      --dark: #1e293b;
+      --mid: #475569;
+      --light: #94a3b8;
+      --bg-left: #1e293b;
+      --text-left: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 10.5pt;
+      color: var(--dark);
+      background: #f1f5f9;
+      line-height: 1.5;
+    }
+
+    /* ── Botón de impresión (se oculta al imprimir) ── */
+    .print-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(14,116,144,.35);
+      z-index: 100;
+      transition: background .15s;
+    }
+    .print-btn:hover { background: #0c6280; }
+
+    /* ── Hoja A4 ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1.5rem auto;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 64mm 1fr;
+      box-shadow: 0 4px 24px rgba(0,0,0,.12);
+    }
+
+    /* ── Columna izquierda ── */
+    .sidebar {
+      background: var(--bg-left);
+      color: var(--text-left);
+      padding: 2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .sidebar-section-title {
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid #334155;
+      padding-bottom: .35rem;
+      margin-bottom: .75rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      font-size: 9pt;
+      margin-bottom: .45rem;
+      color: #cbd5e1;
+    }
+    .contact-item svg { flex-shrink: 0; margin-top: .15rem; }
+    .contact-item a { color: #cbd5e1; text-decoration: none; }
+    .contact-item a:hover { color: #fff; }
+
+    .skill-group { margin-bottom: .9rem; }
+    .skill-group-title {
+      font-size: 8pt;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: .4rem;
+    }
+    .skill-pill {
+      display: inline-block;
+      background: #334155;
+      color: #e2e8f0;
+      border-radius: 3px;
+      padding: .15rem .5rem;
+      font-size: 8pt;
+      margin: .2rem .2rem 0 0;
+    }
+    .skill-pill.highlight {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+      margin-bottom: .35rem;
+      color: #cbd5e1;
+    }
+    .lang-level { color: #94a3b8; font-size: 8.5pt; }
+
+    /* ── Columna derecha ── */
+    .main {
+      padding: 2rem 1.8rem 2rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    /* Cabecera */
+    .cv-header { border-bottom: 2px solid var(--accent-light); padding-bottom: 1rem; }
+    .cv-name {
+      font-size: 22pt;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -.02em;
+      line-height: 1.1;
+    }
+    .cv-role {
+      font-size: 11pt;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: .25rem;
+      letter-spacing: .01em;
+    }
+
+    /* Secciones */
+    .section-title {
+      font-size: 8.5pt;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--accent-light);
+      padding-bottom: .3rem;
+      margin-bottom: .85rem;
+    }
+
+    /* Perfil */
+    .profile-text {
+      font-size: 9.5pt;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* Experiencia */
+    .exp-item { margin-bottom: 1.1rem; }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: .5rem;
+    }
+    .exp-title {
+      font-size: 10pt;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .exp-date {
+      font-size: 8pt;
+      color: var(--light);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .exp-company {
+      font-size: 9pt;
+      color: var(--accent);
+      font-weight: 500;
+      margin: .1rem 0 .4rem;
+    }
+    .exp-location {
+      font-size: 8pt;
+      color: var(--light);
+    }
+    .exp-bullets {
+      list-style: none;
+      margin-top: .4rem;
+    }
+    .exp-bullets li {
+      font-size: 9pt;
+      color: var(--mid);
+      padding-left: .9rem;
+      position: relative;
+      margin-bottom: .25rem;
+      line-height: 1.5;
+    }
+    .exp-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 8pt;
+      top: .05rem;
+    }
+
+    /* Formación */
+    .edu-title { font-size: 10pt; font-weight: 600; color: var(--dark); }
+    .edu-sub { font-size: 9pt; color: var(--mid); margin-top: .15rem; }
+
+    /* ── PRINT ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body { background: #fff; }
+      .print-btn { display: none !important; }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none"
+       viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round"
+          d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+  </svg>
+  Imprimir / Guardar PDF
+</button>
+
+<div class="page">
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+
+    <div>
+      <p class="sidebar-section-title">Contacto</p>
+      <div class="contact-item">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>Barcelona, España</span>
+      </div>
+      <div class="contact-item">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <a href="mailto:tomasantonayagodoy@gmail.com">tomasantonayagodoy@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        <a href="https://www.linkedin.com/in/antonayagodoy/" target="_blank">linkedin.com/in/antonayagodoy</a>
+      </div>
+      <div class="contact-item">
+        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
+        </svg>
+        <a href="https://github.com/Godoy2121" target="_blank">github.com/Godoy2121</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="sidebar-section-title">Habilidades técnicas</p>
+
+      <div class="skill-group">
+        <p class="skill-group-title">Bases de datos & SQL</p>
+        <span class="skill-pill highlight">SQL Server</span>
+        <span class="skill-pill highlight">MySQL</span>
+        <span class="skill-pill highlight">SQLite</span>
+        <span class="skill-pill highlight">T-SQL</span>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">Datos & Reporting</p>
+        <span class="skill-pill highlight">ETL</span>
+        <span class="skill-pill highlight">Crystal Reports</span>
+        <span class="skill-pill">Migración de datos</span>
+        <span class="skill-pill">Validación de datos</span>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">Programación</p>
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">C#</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">.NET</span>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">Sistemas & ERP</p>
+        <span class="skill-pill">Windows Server</span>
+        <span class="skill-pill">Linux / Ubuntu</span>
+        <span class="skill-pill">Ahora ERP</span>
+        <span class="skill-pill">Sage 200</span>
+        <span class="skill-pill">Odoo</span>
+        <span class="skill-pill">VMware</span>
+        <span class="skill-pill">Hyper-V</span>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-title">Desarrollo web</p>
+        <span class="skill-pill">HTML / CSS</span>
+        <span class="skill-pill">React</span>
+        <span class="skill-pill">Astro</span>
+        <span class="skill-pill">Firebase</span>
+      </div>
+    </div>
+
+    <div>
+      <p class="sidebar-section-title">Idiomas</p>
+      <div class="lang-item">
+        <span>Español</span>
+        <span class="lang-level">Nativo</span>
+      </div>
+      <div class="lang-item">
+        <span>Inglés</span>
+        <span class="lang-level">Intermedio (B1)</span>
+      </div>
+      <div class="lang-item">
+        <span>Catalán</span>
+        <span class="lang-level">Comprensión alta</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ════════════ MAIN ════════════ -->
+  <main class="main">
+
+    <!-- Cabecera -->
+    <div class="cv-header">
+      <h1 class="cv-name">Tomás Antonaya Godoy</h1>
+      <p class="cv-role">Analista de Datos · Especialista en Bases de Datos</p>
+    </div>
+
+    <!-- Perfil -->
+    <div>
+      <p class="section-title">Perfil profesional</p>
+      <p class="profile-text">
+        Técnico de datos con más de 5 años de experiencia trabajando con bases de datos relacionales
+        en entornos empresariales. Especializado en migración, transformación y validación de datos
+        mediante SQL (SQL Server, MySQL, SQLite), con amplia experiencia en procesos ETL y diseño
+        de informes con Crystal Reports. Perfil híbrido con sólidos conocimientos de administración
+        de sistemas y desarrollo web, lo que facilita la comprensión integral del dato en toda la cadena:
+        desde el sistema origen hasta el informe final.
+      </p>
+    </div>
+
+    <!-- Experiencia -->
+    <div>
+      <p class="section-title">Experiencia laboral</p>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Especialista en Migración de Bases de Datos</span>
+          <span class="exp-date">Jun. 2025 – Actualidad</span>
+        </div>
+        <p class="exp-company">Infomed Software <span class="exp-location">· Barcelona</span></p>
+        <ul class="exp-bullets">
+          <li>Análisis de esquemas y estructuras de datos en bases de datos origen para software de gestión de clínicas dentales.</li>
+          <li>Diseño y ejecución de procesos ETL: extracción, transformación y carga de datos entre sistemas.</li>
+          <li>Desarrollo de scripts T-SQL y procedimientos almacenados para limpieza, normalización y validación de datos.</li>
+          <li>Verificación de integridad referencial y consistencia de datos tras cada migración.</li>
+          <li>Coordinación directa con clientes durante los procesos de traspaso, minimizando la interrupción operativa.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Soporte técnico · Desarrollador Junior</span>
+          <span class="exp-date">Ene. 2022 – Jun. 2024</span>
+        </div>
+        <p class="exp-company">Merlos Infor <span class="exp-location">· Badalona</span></p>
+        <ul class="exp-bullets">
+          <li>Análisis y manipulación de datos en SQL Server para diagnóstico y resolución de incidencias en Ahora ERP.</li>
+          <li>Diseño y modificación de informes analíticos en Crystal Reports para distintos departamentos.</li>
+          <li>Desarrollo de consultas SQL y personalización del ERP mediante C# para adaptarlo a necesidades del cliente.</li>
+          <li>Ejecución de migraciones de datos entre versiones del sistema, garantizando la integridad del dato.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Soporte técnico</span>
+          <span class="exp-date">Jun. 2021 – Dic. 2021</span>
+        </div>
+        <p class="exp-company">Advantys <span class="exp-location">· Granada</span></p>
+        <ul class="exp-bullets">
+          <li>Extracción y análisis de datos en SQL Server para diagnóstico de problemas en Sage 200.</li>
+          <li>Manipulación de datos para optimización de procesos y soporte a usuarios.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Soporte técnico</span>
+          <span class="exp-date">Sep. 2019 – Dic. 2020</span>
+        </div>
+        <p class="exp-company">APL <span class="exp-location">· Granada</span></p>
+        <ul class="exp-bullets">
+          <li>Administración de bases de datos MySQL en entornos de ERP y punto de venta (TPV).</li>
+          <li>Implementación y mantenimiento de soluciones de gestión empresarial.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Formación -->
+    <div>
+      <p class="section-title">Formación</p>
+      <p class="edu-title">Técnico Superior en Administración de Sistemas Informáticos en Red (ASIR)</p>
+      <p class="edu-sub">Especialización en bases de datos, redes, virtualización y personalización de aplicaciones ERP.</p>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
