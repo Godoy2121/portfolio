@@ -4,6 +4,39 @@ import { TAGS } from "../data/skillsData";
 export const PROJECTS = [
     {
         title: {
+          es: "F1 Live Dashboard 2026",
+          en: "F1 Live Dashboard 2026",
+          ca: "F1 Live Dashboard 2026",
+        },
+        description: {
+          es: "Dashboard de telemetría en tiempo real para la temporada 2026 de Fórmula 1, " +
+              "integrado con la API oficial OpenF1. Muestra tiempos en vivo, posiciones, " +
+              "intervalos, trampa de velocidad, mensajes de la FIA (control de carrera), " +
+              "datos meteorológicos con historial de temperatura, calendario y clasificación. " +
+              "Disponible como PWA instalable con notificaciones push para bandera roja, safety car y más.",
+          en: "Real-time telemetry dashboard for the 2026 Formula 1 season, " +
+              "integrated with the official OpenF1 API. Shows live timing, positions, " +
+              "gaps, speed trap, FIA race control messages, weather data with temperature history, " +
+              "calendar and standings. Available as an installable PWA with push notifications " +
+              "for red flag, safety car events and more.",
+          ca: "Dashboard de telemetria en temps real per a la temporada 2026 de Fórmula 1, " +
+              "integrat amb l'API oficial OpenF1. Mostra temps en viu, posicions, " +
+              "intervals, trampa de velocitat, missatges de la FIA (control de carrera), " +
+              "dades meteorològiques amb historial de temperatura, calendari i classificació. " +
+              "Disponible com a PWA instal·lable amb notificacions push per a bandera vermella, safety car i més.",
+        },
+        tags: [
+            { tag: TAGS.JS, level: 95 },
+            { tag: TAGS.HTML, level: 85 },
+            { tag: TAGS.CSS, level: 85 },
+            { tag: TAGS.Firebase, level: 80 },
+        ],
+        link: "https://formula1-live.web.app/",
+        github: "",
+        images: [],
+    },
+    {
+        title: {
           es: "F1 Manager RPG 2026",
           en: "F1 Manager RPG 2026",
           ca: "F1 Manager RPG 2026",
