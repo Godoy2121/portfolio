@@ -57,40 +57,32 @@ const { description, title } = Astro.props
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		background: radial-gradient(100% 50% at 50% 0%, rgba(0, 163, 255, 0.13) 0%, rgba(0, 163, 255, 0) 50%, rgba(0, 163, 255, 0) 100%);
+		background-color: #f8fafc;
+		background-image:
+			radial-gradient(ellipse 80% 40% at 50% -10%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+			radial-gradient(ellipse 40% 30% at 90% 50%, rgba(139, 92, 246, 0.07) 0%, transparent 60%);
 	}
 
 	.dark body {
 		position: relative;
 		min-height: 100vh;
 		width: 100%;
-		background-color: #0f172a; 
-	}
-
-	.dark body::before,
-	.dark body::after {
-		content: '';
-		position: absolute;
-		max-height: 100%;
-		max-width: 100%;
-		border-radius: 50%;
-		background: radial-gradient(circle farthest-side, rgba(255, 0, 182, 0.15), rgba(255, 255, 255, 0));
-	}
-
-	.dark body::before {
-		bottom: -20%;
-		left: -20%;
-	}
-
-	.dark body::after {
-		bottom: -20%;
-		right: -20%;
-		
+		background-color: #0c1220;
+		background-image:
+			radial-gradient(ellipse 80% 40% at 50% -5%, rgba(6, 182, 212, 0.12) 0%, transparent 55%),
+			radial-gradient(ellipse 50% 40% at 0% 70%, rgba(139, 92, 246, 0.10) 0%, transparent 50%),
+			radial-gradient(ellipse 40% 30% at 100% 80%, rgba(6, 182, 212, 0.07) 0%, transparent 50%);
 	}
 
 	.nav-link.active {
-        @apply dark:text-yellow-400 text-purple-800 font-semibold underline;
+        @apply dark:text-cyan-400 text-cyan-700 font-semibold;
+        text-decoration: none;
+        background-color: rgb(207 250 254 / 0.5);
     }
+
+	.dark .nav-link.active {
+		background-color: rgb(8 145 178 / 0.15);
+	}
 
 	@layer utilities {
   .neon-effect {

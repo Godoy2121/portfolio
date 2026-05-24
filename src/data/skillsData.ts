@@ -1,3 +1,4 @@
+import Firebase from '../components/icons/Firebase.astro';
 import SQLServer from '../components/icons/SQLServer.astro';
 import MySQL from '../components/icons/MySQL.astro';
 import SQLite from '../components/icons/SQLite.astro';
@@ -164,10 +165,16 @@ export const TAGS = {
     class: "bg-cyan-600/90 px-3 py-1 rounded-full",
     level: 85,
   },
+  Firebase: {
+    name: "Firebase",
+    icon: Firebase,
+    class: "bg-amber-500/90 text-white px-3 py-1 rounded-full",
+    level: 80,
+  },
   React: {
     name: "React",
     icon: React,
-    class: "bg-amber-600/90 px-3 py-1 rounded-full",
+    class: "bg-sky-400/90 px-3 py-1 rounded-full",
     level: 80,
   },
   Redux: {
@@ -251,7 +258,7 @@ export const SKILLS = [
       en: "Web",
       ca: "Web",
     },
-    tags: [TAGS.HTML, TAGS.CSS, TAGS.JS, TAGS.ASTRO, TAGS.TAILWIND, TAGS.React, TAGS.Redux],
+    tags: [TAGS.HTML, TAGS.CSS, TAGS.JS, TAGS.ASTRO, TAGS.TAILWIND, TAGS.React, TAGS.Redux, TAGS.Firebase],
   },
   {
     category: {

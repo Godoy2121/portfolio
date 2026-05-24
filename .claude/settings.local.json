@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:portfolio-godoy.netlify.app)",
+      "WebFetch(domain:formula2026.web.app)",
+      "WebFetch(domain:dbz-rpg.web.app)",
+      "WebFetch(domain:nuzlocke-guide.web.app)",
+      "WebFetch(domain:metro-bcn-live.web.app)",
+      "WebFetch(domain:descoorcha.web.app)",
+      "WebFetch(domain:crucigramas0.web.app)",
+      "WebFetch(domain:sudoku-6a6bc.web.app)",
+      "Bash(gh api *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:www.linkedin.com)"
+    ]
+  }
+}

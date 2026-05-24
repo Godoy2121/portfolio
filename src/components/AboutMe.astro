@@ -2,129 +2,100 @@
 import { SKILLS } from '../data/skillsData'
 import LanguageSelector from "./LanguageSelector.astro";
 ---
-<h3
-    class="lg:text-2xl md:text-2xl text-xl font-semibold
-                           dark:text-yellow-200 text-red-900/90 mb-2 mt-2"
->
-  <LanguageSelector 
+
+<h3 class="lg:text-2xl md:text-2xl text-xl font-semibold
+    text-gray-900 dark:text-gray-100 mb-2 mt-2">
+  <LanguageSelector
+    esp="Sobre mí"
+    eng="About me"
+    cat="Sobre mi"/>
+</h3>
+
+<div class="lg:text-base text-sm mb-6 text-pretty leading-relaxed
+    dark:text-gray-400 text-gray-700 max-w-2xl">
+  <LanguageSelector
+    esp="Técnico de sistemas reconvertido en desarrollador web con pasión genuina por construir cosas. Me muevo bien entre el backend (SQL, C#, administración de sistemas) y el frontend (JavaScript, Astro, Tailwind). Me gusta resolver problemas reales con código limpio y aprender algo nuevo en cada proyecto."
+    eng="Systems technician turned web developer with a genuine passion for building things. I'm comfortable in both backend (SQL, C#, systems administration) and frontend (JavaScript, Astro, Tailwind). I enjoy solving real problems with clean code and learning something new in every project."
+    cat="Tècnic de sistemes reconvertit en desenvolupador web amb passió genuïna per construir coses. Em moc bé entre el backend (SQL, C#, administració de sistemes) i el frontend (JavaScript, Astro, Tailwind). M'agrada resoldre problemes reals amb codi net i aprendre alguna cosa nova en cada projecte."
+  />
+</div>
+
+<h3 class="lg:text-2xl md:text-2xl text-xl font-semibold
+    text-gray-900 dark:text-gray-100 mb-2 mt-6">
+  <LanguageSelector
     esp="Formación"
     eng="Education"
     cat="Formació"/>
 </h3>
-<h4
-    class="lg:text-lg md:text-lg text-base font-medium
-                    text-teal-800 dark:text-stone-300 mt-2 mb-2"
->
-  <LanguageSelector 
-    esp="Administrador de Sistemas Informáticos en Red"
-    eng="Network computer systems administrator"
-    cat="Administrador de Sistemes Informàtics en Xarxa"/>
-    
+
+<h4 class="lg:text-base md:text-base text-sm font-semibold
+    text-cyan-700 dark:text-cyan-400 mt-1 mb-1">
+  <LanguageSelector
+    esp="Administrador de Sistemas Informáticos en Red (ASIR)"
+    eng="Network Computer Systems Administrator"
+    cat="Administrador de Sistemes Informàtics en Xarxa (ASIX)"/>
 </h4>
-<ul class="lg:text-lg text-base mb-2 text-pretty
-dark:text-gray-400 text-gray-900/90">
-    <li>
-        <div>
-          <LanguageSelector 
-            esp="Técnico de sistemas con experiencia en la personalización de aplicaciones ERP, programación en SQL y C#, migración de datos y diseño de reportes."
-            eng="Systems technician with experience in ERP application customization, SQL and C# programming, data migrations and report design."
-            cat="Tècnic de sistemes amb experiència en personalització d'aplicacions ERP, programació en SQL i C#, migracions de dades i disseny d'informes."
-          />
-        </div>
-        <div>
-          <LanguageSelector 
-            esp="Competencias en bases de datos, gestión de incidencias, y herramientas de desarrollo."
-            eng="Skills in databases, incident management, and development tools."
-            cat="Competències en bases de dades, gestió d'incidències i eines de desenvolupament."
-          />
-        </div> 
-    </li>
-</ul>
+<p class="text-sm text-gray-500 dark:text-gray-500 mb-6">
+  <LanguageSelector
+    esp="Especialización en ERP, bases de datos, virtualización y redes."
+    eng="Specialization in ERP, databases, virtualization and networking."
+    cat="Especialització en ERP, bases de dades, virtualització i xarxes."/>
+</p>
 
-
-<h3
-    class="lg:text-2xl md:text-2xl text-xl font-semibold
-            dark:text-yellow-200 text-red-900/90 mb-2 mt-4"
->
-  <LanguageSelector 
+<h3 class="lg:text-2xl md:text-2xl text-xl font-semibold
+    text-gray-900 dark:text-gray-100 mb-4 mt-6">
+  <LanguageSelector
     esp="Habilidades técnicas"
     eng="Technical skills"
-    cat="Habilitats tècniques"
-    />
+    cat="Habilitats tècniques"/>
 </h3>
-
 
 {SKILLS.map(({ category, tags }) => (
   <>
-    <h4 class="lg:text-lg md:text-lg text-base font-medium text-teal-800 dark:text-sky-200 mt-2 mb-2">
-      <LanguageSelector 
+    <h4 class="text-sm font-semibold uppercase tracking-wider
+        text-cyan-700 dark:text-cyan-500 mt-4 mb-3">
+      <LanguageSelector
         esp={category.es}
         eng={category.en}
         cat={category.ca}/>
     </h4>
-    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-4 mt-4 dark:text-white/80">
-      {tags.map((tag, level) => (
-        <li class="flex items-center gap-4">
+    <ul class="flex flex-wrap gap-2 mb-4">
+      {tags.map((tag) => (
+        <li class="flex items-center gap-1.5 bg-gray-100/80 dark:bg-gray-800/60
+                   border border-gray-200/60 dark:border-gray-700/40
+                   px-3 py-1.5 rounded-full text-xs font-medium
+                   text-gray-700 dark:text-gray-300">
           {typeof tag.icon === 'string' ? (
-            <img src={tag.icon} alt={tag.name} class="size-6 lg:size-8" />
+            <img src={tag.icon} alt={tag.name} class="size-4" />
           ) : (
-            <tag.icon class="size-6 lg:size-8" />
+            <tag.icon class="size-4" />
           )}
-          <div class="w-full">
-            <p class="font-semibold text-sm lg:text-base">{tag.name}</p>
-            {tag.level !== undefined && (
-              <div class="relative w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700 border border-black dark:border-white box-border">
-                <div
-                  class={`absolute top-0 left-0 h-full rounded-full ${tag.class.split(" ")[0]}`}
-                  style={`width: ${tag.level}%;`}
-                ></div>
-              </div>
-            )}
-          </div>
+          {tag.name}
         </li>
       ))}
     </ul>
   </>
 ))}
 
-
-<h3
-    class="lg:text-2xl md:text-2xl text-xl font-semibold
-                           dark:text-yellow-200 text-red-900/90 mb-2 mt-6"
->
-  <LanguageSelector 
-    esp="Sobre mí"
-    eng="About me"
-    cat="Sobre mi"/>
+<h3 class="lg:text-2xl md:text-2xl text-xl font-semibold
+    text-gray-900 dark:text-gray-100 mb-3 mt-8">
+  <LanguageSelector
+    esp="Currículum"
+    eng="Resume"
+    cat="Currículum"/>
 </h3>
 
-<div
-    class="lg:text-lg text-base mb-4 text-pretty
-                    dark:text-gray-400 text-gray-900/90"
->
-  <LanguageSelector 
-    esp="Proactivo, jugador de equipo, y con capacidad para adaptarme rápidamente a nuevas tecnologías."
-    eng="Proactive, team player, with ability to quickly adapt to new technologies."
-    cat="Proactiu, jugador d'equip, i amb capacitat per adaptar-me ràpidament a noves tecnologies." />
-    
-</div>
-
-<h3
-    class="lg:text-2xl md:text-2xl text-xl font-semibold
-                           dark:text-yellow-200 text-red-900/90 mb-2 mt-4"
->
-    <a class="hover:underline" href="/cv/Tomas_CV_2025.pdf">
-      Currículum (PDF)</a>
-</h3>
-<h4
-    class="lg:text-lg md:text-lg text-base font-medium
-                    text-teal-800 dark:text-stone-300 mt-2 mb-2"
->
-    <a class="hover:underline" href="/cv/Tomás_CV_2025.pdf">
-      <LanguageSelector 
-        esp="Pulsa para ver mi CV en formato PDF"
-        eng="Click to view my CV in PDF format"
-        cat="Clica per veure el meu CV en format PDF"/>
-      </a>
-</h4>
-
+<a href="/cv/Tomas_CV_2025.pdf" target="_blank" rel="noopener noreferrer"
+   class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold
+          bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg
+          transition-colors duration-200 shadow-sm">
+  <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none"
+       viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+  </svg>
+  <LanguageSelector
+    esp="Descargar CV (PDF)"
+    eng="Download CV (PDF)"
+    cat="Descarregar CV (PDF)"/>
+</a>
