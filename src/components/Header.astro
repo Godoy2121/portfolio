@@ -72,49 +72,24 @@ import LanguageSelector from './LanguageSelector.astro';
 </header>
 
 <script is:inline>
+    // Only scroll-spy — language state is managed by LanguageSelector.astro
     document.addEventListener('DOMContentLoaded', () => {
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
-        function setActiveLanguage(lang) {
-            localStorage.setItem('preferredLanguage', lang);
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-white', 'shadow-sm');
-            });
-            const activeBtn = document.getElementById(`lang-${lang}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-white', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-white', 'shadow-sm');
-            }
-        }
-
-        document.querySelectorAll('.language-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                setActiveLanguage(btn.dataset.lang);
-            });
-        });
-
-        const savedLang = localStorage.getItem('preferredLanguage') || 'es';
-        setActiveLanguage(savedLang);
-
         const highlightNavLink = () => {
             let currentSection = '';
-            sections.forEach((section) => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                if (window.scrollY >= sectionTop - sectionHeight / 3) {
+            sections.forEach(section => {
+                if (window.scrollY >= section.offsetTop - section.offsetHeight / 3) {
                     currentSection = section.getAttribute('id');
                 }
             });
-
-            navLinks.forEach((link) => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSection}`) {
-                    link.classList.add('active');
-                }
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${currentSection}`);
             });
         };
 
-        window.addEventListener('scroll', highlightNavLink);
+        window.addEventListener('scroll', highlightNavLink, { passive: true });
         highlightNavLink();
     });
 </script>

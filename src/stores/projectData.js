@@ -37,6 +37,66 @@ export const PROJECTS = [
     },
     {
         title: {
+          es: "ETL Quest — Aprende ETL jugando",
+          en: "ETL Quest — Learn ETL by Playing",
+          ca: "ETL Quest — Aprèn ETL jugant",
+        },
+        description: {
+          es: "La primera plataforma gamificada de ETL en español. Aprende los conceptos de " +
+              "extracción, transformación y carga a través de 6 mundos temáticos, 38 lecciones y " +
+              "8.590 XP de progresión. Sistema RPG con árbol de habilidades, ranking global y logros. " +
+              "Autenticación de usuarios y progreso persistente entre sesiones.",
+          en: "The first gamified ETL platform in Spanish. Learn extraction, transformation " +
+              "and load concepts through 6 themed worlds, 38 lessons and 8,590 XP of progression. " +
+              "RPG system with skill tree, global ranking and achievements. " +
+              "User authentication and persistent progress across sessions.",
+          ca: "La primera plataforma gamificada d'ETL en espanyol. Aprèn els conceptes d'extracció, " +
+              "transformació i càrrega a través de 6 mons temàtics, 38 lliçons i 8.590 XP de progressió. " +
+              "Sistema RPG amb arbre d'habilitats, rànquing global i assoliments. " +
+              "Autenticació d'usuaris i progrés persistent entre sessions.",
+        },
+        tags: [
+            { tag: TAGS.JS, level: 95 },
+            { tag: TAGS.HTML, level: 85 },
+            { tag: TAGS.CSS, level: 85 },
+            { tag: TAGS.Firebase, level: 85 },
+        ],
+        link: "https://etl-quest.web.app/",
+        github: "",
+        images: [],
+    },
+    {
+        title: {
+          es: "Sol de Terreros",
+          en: "Sol de Terreros",
+          ca: "Sol de Terreros",
+        },
+        description: {
+          es: "Guía turística y directorio local para la zona costera de Terreros (Almería). " +
+              "Playas con información de banderas en tiempo real, restaurantes, eventos y mapa interactivo. " +
+              "Widget meteorológico integrado con la API Open-Meteo. " +
+              "Panel de administración con CRUD completo (Firebase Auth + Firestore). PWA instalable.",
+          en: "Tourist guide and local directory for the Terreros coastal area (Almería). " +
+              "Beaches with real-time flag info, restaurants, events and interactive map. " +
+              "Weather widget powered by the Open-Meteo API. " +
+              "Admin panel with full CRUD (Firebase Auth + Firestore). Installable PWA.",
+          ca: "Guia turística i directori local per a la zona costanera de Terreros (Almeria). " +
+              "Platges amb informació de banderes en temps real, restaurants, esdeveniments i mapa interactiu. " +
+              "Widget meteorològic integrat amb l'API Open-Meteo. " +
+              "Panell d'administració amb CRUD complet (Firebase Auth + Firestore). PWA instal·lable.",
+        },
+        tags: [
+            { tag: TAGS.React, level: 90 },
+            { tag: TAGS.JS, level: 90 },
+            { tag: TAGS.CSS, level: 85 },
+            { tag: TAGS.Firebase, level: 85 },
+        ],
+        link: "https://soldeterreros.web.app/",
+        github: "",
+        images: [],
+    },
+    {
+        title: {
           es: "F1 Manager RPG 2026",
           en: "F1 Manager RPG 2026",
           ca: "F1 Manager RPG 2026",
